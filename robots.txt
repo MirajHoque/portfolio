@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iammiraj.me/sitemap.xml

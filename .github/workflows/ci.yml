@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  headers:
+    name: Security headers up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify generated headers match the HTML
+        run: python3 scripts/generate-csp.py --check
+
+  html:
+    name: HTML validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate markup
+        run: npx --yes html-validate index.html 404.html
+
+  links:
+    name: Internal links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every local href and src exists
+        run: bash scripts/check-links.sh
+
+  lighthouse:
+    name: Lighthouse budgets
+    runs-on: ubuntu-latest
+    needs: [html]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Serve the site
+        run: npx --yes serve -l 8080 . &
+      - name: Wait for the server
+        run: npx --yes wait-on http://localhost:8080 --timeout 60000
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: http://localhost:8080/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: ./.lighthouserc.json

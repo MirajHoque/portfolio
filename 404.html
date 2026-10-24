@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — Page not found | Ashraful Hoque Miraj</title>
+<meta name="description" content="That page could not be found.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script src="assets/js/theme-init.js"></script>
+</head>
+<body>
+<main id="main" class="section" style="min-height:70vh;display:grid;place-items:center;text-align:center">
+  <div class="container">
+    <p class="section-kicker">Error 404</p>
+    <h1 class="hero-title" style="font-size:var(--step-3)">This route has no upstream.</h1>
+    <p class="section-sub" style="margin-inline:auto;max-width:34rem">
+      The page you asked for isn't here. It may have been moved, renamed, or it never existed.
+    </p>
+    <p style="margin-top:2rem"><a class="btn btn-primary" href="/">Back to the homepage</a></p>
+    <pre class="terminal-body" style="max-width:32rem;margin:2.5rem auto 0;text-align:left;border:1px solid var(--border);border-radius:var(--radius);background:#0a1120"><code><span class="c-prompt">➜</span> <span class="c-cmd">curl -I</span> $REQUESTED_PATH
+HTTP/2 404
+<span class="c-dim">x-hint: try the navigation instead</span></code></pre>
+  </div>
+</main>
+</body>
+</html>

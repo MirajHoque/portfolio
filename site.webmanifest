@@ -1,0 +1,13 @@
+{
+  "name": "Ashraful Hoque Miraj — DevOps & Platform Engineer",
+  "short_name": "Miraj",
+  "description": "Portfolio of a DevOps and Platform Engineer working with AWS, Kubernetes and Terraform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fb",
+  "theme_color": "#f6f8fb",
+  "icons": [
+    { "src": "/assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
