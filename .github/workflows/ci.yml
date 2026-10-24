@@ -16,10 +16,10 @@ concurrency:
 jobs:
   headers:
     name: Security headers up to date
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Verify generated headers match the HTML
@@ -27,32 +27,32 @@ jobs:
 
   html:
     name: HTML validation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Validate markup
         run: npx --yes html-validate index.html 404.html
 
   links:
     name: Internal links resolve
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check every local href and src exists
         run: bash scripts/check-links.sh
 
   lighthouse:
     name: Lighthouse budgets
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [html]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Serve the site
         run: npx --yes serve -l 8080 . &
       - name: Wait for the server
